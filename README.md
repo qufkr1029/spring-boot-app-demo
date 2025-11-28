@@ -1,22 +1,27 @@
 # 데모 프로젝트
 
-이 프로젝트는 Gradle로 초기화된 기본적인 Spring Boot 애플리케이션입니다.
+이 프로젝트는 Gradle 빌드도구로 생성된 Spring Boot 템플릿 웹 애플리케이션입니다.
 
 ## 시작하기
 
-이 지침은 개발 및 테스트 목적으로 로컬 머신에 프로젝트를 설치하고 실행하는 데 도움이 됩니다.
+Spring Boot 기반의 WAS를 구축하고 react와 thymeleaf를 같이 사용하기 위한 사용자에게 도움이 될 것입니다.
 
-### 전제 조건
+## 시스템 환경 (System Environment)
 
-시스템에 Java Development Kit (JDK) 17 이상이 설치되어 있어야 합니다.
+이 프로젝트는 다음 환경에서 개발 및 테스트되었습니다.
+
+*   **Operating System:** Mac OS X 15.6 aarch64
+*   **Backend:**
+    *   **Java (JVM):** 17.0.11 (Oracle Corporation 17.0.11+7-LTS-207)
+    *   **Gradle:** 8.14.3
+*   **Frontend:**
+    *   **Node.js:** v22.12.0
+    *   **npm:** 11.0.0
+*   **IDE:** Visual Studio Code
 
 ### 저장소 복제 (Cloning the repository)
 
-```bash
-git clone <당신의-저장소-URL>
-cd demo
-```
-`<당신의-저장소-URL>`을 실제 Git 저장소 URL로 바꾸세요.
+github: https://github.com/qufkr1029/boot-react-thymeleaf-app
 
 ## 프로젝트 빌드
 
