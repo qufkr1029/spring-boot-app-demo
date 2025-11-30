@@ -17,35 +17,35 @@ public class DataInitializer {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder; // PasswordEncoder 주입
 
-    @Bean
-    public CommandLineRunner initData() {
-        return args -> {
-            log.info("Initializing sample data...");
-
-            // 테스트용 계정 생성 (비밀번호는 반드시 인코딩)
-            if (!accountRepository.existsByUsername("user")) {
-                Account userAccount = Account.builder()
-                        .username("user")
-                        .password(passwordEncoder.encode("password")) // 비밀번호 인코딩
-                        .email("user@example.com")
-                        .role("USER")
-                        .build();
-                accountRepository.save(userAccount);
-                log.info("Created user: {}", userAccount.getUsername());
-            }
-
-            if (!accountRepository.existsByUsername("admin")) {
-                Account adminAccount = Account.builder()
-                        .username("admin")
-                        .password(passwordEncoder.encode("adminpass")) // 비밀번호 인코딩
-                        .email("admin@example.com")
-                        .role("ADMIN")
-                        .build();
-                accountRepository.save(adminAccount);
-                log.info("Created admin: {}", adminAccount.getUsername());
-            }
-
-            log.info("Sample data initialization complete.");
-        };
-    }
+//    @Bean
+//    public CommandLineRunner initData() {
+//        return args -> {
+//            log.info("Initializing sample data...");
+//
+//            // 테스트용 계정 생성 (비밀번호는 반드시 인코딩)
+//            if (!accountRepository.existsByUsername("user")) {
+//                Account userAccount = Account.builder()
+//                        .username("user")
+//                        .password(passwordEncoder.encode("password")) // 비밀번호 인코딩
+//                        .email("user@example.com")
+//                        .role("USER")
+//                        .build();
+//                accountRepository.save(userAccount);
+//                log.info("Created user: {}", userAccount.getUsername());
+//            }
+//
+//            if (!accountRepository.existsByUsername("admin")) {
+//                Account adminAccount = Account.builder()
+//                        .username("admin")
+//                        .password(passwordEncoder.encode("adminpass")) // 비밀번호 인코딩
+//                        .email("admin@example.com")
+//                        .role("ADMIN")
+//                        .build();
+//                accountRepository.save(adminAccount);
+//                log.info("Created admin: {}", adminAccount.getUsername());
+//            }
+//
+//            log.info("Sample data initialization complete.");
+//        };
+//    }
 }

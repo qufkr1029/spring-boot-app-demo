@@ -7,23 +7,32 @@ spring:
     pathmatch:
       matching-strategy: ant-path-matcher
   # H2 데이터베이스 설정
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
+  # MySQL 데이터베이스 설정
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/demo_dev?useSSL=false&serverTimezone=UTC
+    username: user1
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   # H2 콘솔 활성화
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  # h2:
+  #   console:
+  #     enabled: false
+  #     path: /h2-console
   # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: update # 애플리케이션 실행 시 스키마 자동 업데이트
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true # SQL 로그 포맷팅
+        dialect: org.hibernate.dialect.MySQLDialect # MySQL 방언 설정
     show-sql: true # SQL 로그 출력
 
 logging:
