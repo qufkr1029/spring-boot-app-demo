@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>테스트 페이지</title>
+    <title>환영하는 페이지</title>
 </head>
 <body>
-    <h1>안녕하세요 박준범 테스트 페이지입니다.</h1>
+    <h1>안녕하세요 소개페이지입니다.</h1>
+    <p>사용자 아이디: <span th:text="${userId}">userId</span></p>
+    <p>사용자 이메일: <span th:text="${email}">email</span></p>
+    <p>사용자 역할: <span th:text="${role}">role</span></p>
+    <form th:action="@{/logout}" method="get">
+        <button type="submit">로그아웃</button>
+    </form>
 </body>
 </html>
