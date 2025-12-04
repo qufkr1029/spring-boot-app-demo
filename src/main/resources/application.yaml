@@ -3,7 +3,7 @@ spring:
     name: demo
   thymeleaf:
     cache: false
-    prefix: file:src/main/resources/templates/
+    #prefix: file:src/main/resources/templates/ #개발용
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
