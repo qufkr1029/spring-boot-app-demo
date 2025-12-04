@@ -8,17 +8,17 @@ spring:
     pathmatch:
       matching-strategy: ant-path-matcher
   datasource:
-    url: jdbc:mysql://localhost:3306/demo_dev?useSSL=false&serverTimezone=UTC
-    username: user1
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://dpg-d4oia4ogjchc73ao9vqg-a.singapore-postgres.render.com/demo_0omu
+    username: demo_0omu_user
+    password: a2jQmpUGBinSxp0zzp7XfW573o1ZPmCR
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
 
 logging:
