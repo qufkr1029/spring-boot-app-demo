@@ -1,7 +1,7 @@
 package ai.junbeom.demo.account.service;
 
 import ai.junbeom.demo.account.domain.User;
-import ai.junbeom.demo.account.dto.UserSignupDto;
+import ai.junbeom.demo.account.dto.UserDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +11,7 @@ public interface UserService extends UserDetailsService {
     @Override
     UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException;
 
-    void signup(UserSignupDto userSignupDto);
+    void signup(UserDto userDto);
 
     boolean checkUserIdExists(String userId);
 

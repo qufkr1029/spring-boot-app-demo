@@ -3,7 +3,7 @@ package ai.junbeom.demo.account.service.impl;
 import ai.junbeom.demo.account.domain.User;
 import ai.junbeom.demo.account.repository.UserRepository;
 import ai.junbeom.demo.account.service.UserService;
-import ai.junbeom.demo.account.dto.UserSignupDto;
+import ai.junbeom.demo.account.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,21 +33,21 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void signup(UserSignupDto userSignupDto) {
-        if (userRepository.existsByUserId(userSignupDto.userId())) {
+    public void signup(UserDto userDto) {
+        if (userRepository.existsByUserId(userDto.getUserId())) {
             throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
         }
-        if (userRepository.existsByEmail(userSignupDto.email())) {
+        if (userRepository.existsByEmail(userDto.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
 
         User user = User.builder()
-                .userId(userSignupDto.userId())
-                .password(passwordEncoder.encode(userSignupDto.password()))
-                .email(userSignupDto.email())
+                .userId(userDto.getUserId())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .email(userDto.getEmail())
                 .role("USER")
-                .createdId(userSignupDto.userId())
-                .updatedId(userSignupDto.userId())
+                .createdId(userDto.getUserId())
+                .updatedId(userDto.getUserId())
                 .build();
 
         userRepository.save(user);

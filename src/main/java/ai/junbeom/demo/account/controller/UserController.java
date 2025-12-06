@@ -2,7 +2,7 @@ package ai.junbeom.demo.account.controller;
 
 import ai.junbeom.demo.account.domain.User;
 import ai.junbeom.demo.account.dto.Advice;
-import ai.junbeom.demo.account.dto.UserSignupDto;
+import ai.junbeom.demo.account.dto.UserDto;
 import ai.junbeom.demo.account.service.UserService;
 
 import org.springframework.http.ResponseEntity;
@@ -33,8 +33,8 @@ public class UserController {
     private final UserService userService;
     private final RestTemplate restTemplate;
 
-    @GetMapping({"/"})
-    public String indexPage(Model model, Authentication authentication) {
+    @GetMapping({"/my-page"})
+    public String myPageView(Model model, Authentication authentication) {
         String userId = authentication.getName();
         User user = userService.findUserByUserId(userId);
 
@@ -42,13 +42,14 @@ public class UserController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("role", user.getRole());
 
-        return "index";
+        return "account/myPage";
     }
 
     @GetMapping({"/login"})
-    public String loginPage(HttpServletRequest request, Model model, Authentication authentication) {
+    public String loginView(HttpServletRequest request, Model model, Authentication authentication) {
+        // 이미 인증된 사용자는 my-page로 리다이렉트
         if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/";
+            return "redirect:/my-page";
         }
 
         try {
@@ -72,45 +73,46 @@ public class UserController {
         return "account/login";
     }
 
-     @GetMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login";
     }
 
     @GetMapping("/signup")
-    public String signupPage(Model model) {
-        if (!model.containsAttribute("userSignupDto")) {
-            model.addAttribute("userSignupDto", new UserSignupDto("", "", ""));
+    public String signupView(Model model) {
+        if (!model.containsAttribute("userDto")) {
+            model.addAttribute("userDto", new UserDto());
         }
 
         return "account/signup";
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserSignupDto userSignupDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String signup(@Valid UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        // 입력 값 검증
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userSignupDto", bindingResult);
-            redirectAttributes.addFlashAttribute("userSignupDto", userSignupDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDto", bindingResult);
+            redirectAttributes.addFlashAttribute("userDto", userDto);
             return "redirect:/signup";
         }
 
         try {
-            userService.signup(userSignupDto);
+            userService.signup(userDto);
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            redirectAttributes.addFlashAttribute("userSignupDto", userSignupDto);
+            redirectAttributes.addFlashAttribute("userDto", userDto);
             return "redirect:/signup";
         }
         return "redirect:/login";
     }
 
-    @GetMapping("/signup/check-id/{userId}")
+    @GetMapping("/check-id/{userId}")
     public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String userId) {
         return ResponseEntity.ok(userService.checkUserIdExists(userId));
     }
 
-    @GetMapping("/signup/check-email/{email}")
+    @GetMapping("/check-email/{email}")
     public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
         return ResponseEntity.ok(userService.checkEmailExists(email));
     }

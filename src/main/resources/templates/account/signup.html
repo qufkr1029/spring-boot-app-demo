@@ -91,7 +91,7 @@
         }
 
         try {
-            const response = await fetch(`/signup/check-id/${userId}`);
+            const response = await fetch(`/check-id/${userId}`);
             const isTaken = await response.json();
             
             if (isTaken) {
@@ -121,7 +121,7 @@
         }
 
         try {
-            const response = await fetch(`/signup/check-email/${email}`);
+            const response = await fetch(`/check-email/${email}`);
             const isTaken = await response.json();
 
             if (isTaken) {
