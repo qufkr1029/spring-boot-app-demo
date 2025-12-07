@@ -26,4 +26,6 @@ logging:
     root: INFO
     ai.junbeom.demo: TRACE
     org.hibernate.orm.jdbc.bind: trace
-    
+
+server:
+  port: 8082
