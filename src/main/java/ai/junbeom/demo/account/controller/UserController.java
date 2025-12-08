@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +25,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 @Slf4j
@@ -32,6 +36,17 @@ public class UserController {
 
     private final UserService userService;
     private final RestTemplate restTemplate;
+
+    @GetMapping("/admin")
+    public String adminView() {
+        return "account/admin";
+    }
+
+    @GetMapping("/api/users")
+    @ResponseBody
+    public List<User> getUsers() {
+        return userService.findAll();
+    }
 
     @GetMapping({"/my-page"})
     public String myPageView(Model model, Authentication authentication) {
@@ -108,12 +123,12 @@ public class UserController {
     }
 
     @GetMapping("/check-id/{userId}")
-    public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String userId) {
+    public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(userService.checkUserIdExists(userId));
     }
 
     @GetMapping("/check-email/{email}")
-    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable("email") String email) {
         return ResponseEntity.ok(userService.checkEmailExists(email));
     }
 
