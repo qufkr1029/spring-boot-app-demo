@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE "users" (
   id SERIAL PRIMARY KEY,
   user_id VARCHAR(50) NOT NULL,
   password VARCHAR(255) NOT NULL,
@@ -22,5 +22,5 @@ END;
 $$ language 'plpgsql';
 
 CREATE TRIGGER update_user_changetimestamp BEFORE UPDATE
-ON "user" FOR EACH ROW EXECUTE PROCEDURE 
+ON "users" FOR EACH ROW EXECUTE PROCEDURE 
 update_changetimestamp_column();

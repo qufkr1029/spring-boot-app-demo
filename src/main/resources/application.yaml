@@ -3,14 +3,13 @@ spring:
     name: demo
   thymeleaf:
     cache: false
-    #prefix: file:src/main/resources/templates/ #개발용
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
   datasource:
-    url: jdbc:postgresql://dpg-d4oia4ogjchc73ao9vqg-a.singapore-postgres.render.com/demo_0omu
-    username: demo_0omu_user
-    password: a2jQmpUGBinSxp0zzp7XfW573o1ZPmCR
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
